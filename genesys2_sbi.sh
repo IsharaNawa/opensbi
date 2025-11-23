@@ -12,7 +12,9 @@ echo "OpenSBI build completed."
 strings build/platform/generic/firmware/fw_payload.elf | grep chipyard
 
 cp ~/Research/repos/opensbi/build/platform/generic/firmware/fw_payload.bin ~/Research/repos/u-boot/u-boot-sbi.bin
-riscv64-linux-gnu-objdump -h  ~/Research/repos/opensbi/build/platform/generic/firmware/fw_payload.elf | grep dtb
+
+# no dtb info in u-boot-sbi.bin
+# riscv64-linux-gnu-objdump -h  ~/Research/repos/opensbi/build/platform/generic/firmware/fw_payload.elf | grep dtb 
 echo "You can now use this binary with your RISC-V platform."
 cd -
 echo "Returning to the previous directory."
