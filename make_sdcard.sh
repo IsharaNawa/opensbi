@@ -8,7 +8,7 @@ LINUX_DIR=~/Research/repos/linux       # Assumes kernel Image is located here
 DISK=/dev/sda           # ⚠️ Change this to your SD card device (e.g., /dev/sde)
 
 FW_PAYLOAD=$OPENSBI_DIR/build/platform/generic/firmware/fw_payload.bin
-KERNEL=$LINUX_DIR/Image
+KERNEL=$LINUX_DIR/arch/riscv/boot/Image
 DTB_SRC=$UBOOT_DIR/arch/riscv/dts/chipyard.fpga.genesys2.GENESYS2FPGATestHarness.RocketGENESYS2Config.dtb
 DTB_DST=$OPENSBI_DIR/system.dtb   # Copy to OpenSBI directory first
 
