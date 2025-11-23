@@ -5,7 +5,7 @@ set -e
 OPENSBI_DIR=~/Research/repos/opensbi
 UBOOT_DIR=~/Research/repos/u-boot
 LINUX_DIR=~/Research/repos/linux       # Assumes kernel Image is located here
-DISK=/dev/sdX           # ⚠️ Change this to your SD card device (e.g., /dev/sde)
+DISK=/dev/sda           # ⚠️ Change this to your SD card device (e.g., /dev/sde)
 
 FW_PAYLOAD=$OPENSBI_DIR/build/platform/generic/firmware/fw_payload.bin
 KERNEL=$LINUX_DIR/Image
@@ -55,7 +55,7 @@ sudo mkfs.vfat -F 32 $PARTITION
 
 # ====== Step 5. Copy Kernel and DTB ======
 echo "[5] Copying kernel Image and system.dtb"
-echo "[0] Copying U-Boot DTB to OpenSBI ($DTB_DST)"
+echo "[5] Copying U-Boot DTB to OpenSBI ($DTB_DST)"
 cp $DTB_SRC $DTB_DST
 sudo mkdir -p $MNT
 sudo mount $PARTITION $MNT
