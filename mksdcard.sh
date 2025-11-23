@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 set -e
-OPENSBI_DIR=~/opensbi
-OPENSBI_FIRM_PATH=~/opensbi/build/platform/generic/firmware
+OPENSBI_DIR=~/Research/repos/opensbi
+OPENSBI_FIRM_PATH=~/Research/repos/opensbi/build/platform/generic/firmware
 cd $OPENSBI_DIR
 lsblk
 echo "Building OpenSBI for RISC-V platform..."
@@ -11,3 +11,5 @@ echo "OpenSBI firmware written to /dev/sde."
 sudo hexdump -C /dev/sde | head -n 20
 echo "First 20 lines of /dev/sde:"
 echo "You can now use this SD card with your RISC-V platform."
+
+# not a safe script, be careful with dd and wipefs commands
