@@ -2,10 +2,10 @@
 set -e
 
 # ====== Path Configuration ======
-OPENSBI_DIR=~/Research/repos/opensbi
-UBOOT_DIR=~/Research/repos/u-boot
+OPENSBI_DIR=/home/ishara/Research/repos/opensbi
+UBOOT_DIR=/home/ishara/Research/repos/u-boot
 LINUX_DIR=/home/ishara/Research/repos/vivado-risc-v/linux-stable       # Assumes kernel Image is located here
-DISK=/dev/sda          # ⚠️ Change this to your SD card device (e.g., /dev/sde)
+DISK=/dev/sdj          # ⚠️ Change this to your SD card device (e.g., /dev/sde)
 
 FW_PAYLOAD=$OPENSBI_DIR/build/platform/generic/firmware/fw_payload.bin
 KERNEL=/home/ishara/Research/repos/vivado-risc-v/linux-stable/arch/riscv/boot/Image
