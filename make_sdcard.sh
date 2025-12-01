@@ -5,12 +5,12 @@ set -e
 OPENSBI_DIR=/home/ishara/Research/repos/opensbi
 UBOOT_DIR=/home/ishara/Research/repos/u-boot
 LINUX_DIR=/home/ishara/Research/repos/vivado-risc-v/linux-stable       # Assumes kernel Image is located here
-DISK=/dev/sdj          # ⚠️ Change this to your SD card device (e.g., /dev/sde)
+DISK=/dev/sdf          # ⚠️ Change this to your SD card device (e.g., /dev/sde)
 
 FW_PAYLOAD=$OPENSBI_DIR/build/platform/generic/firmware/fw_payload.bin
 KERNEL=/home/ishara/Research/repos/vivado-risc-v/linux-stable/arch/riscv/boot/Image
-DTB_SRC=$UBOOT_DIR/arch/riscv/dts/chipyard.fpga.genesys2.GENESYS2FPGATestHarness.RocketGENESYS2Config.dtb
-DTB_DST=$OPENSBI_DIR/system.dtb   # Copy to OpenSBI directory first
+DTB_SRC=$UBOOT_DIR/arch/riscv/dts/Rocket90MHZ.dtb
+DTB_DST=$OPENSBI_DIR/Rocket90MHZ.dtb   # Copy to OpenSBI directory first
 
 MNT=/mnt/sdcard
 
@@ -64,7 +64,7 @@ sleep 2
 
 # ====== Step 4. Format boot partition as FAT32 ======
 echo "[4] Formatting $BOOT_PARTITION as FAT32"
-sudo mkfs.vfat -F 32 $BOOT_PARTITION
+sudo mkfs.vfat -F 32 -n BOOT $BOOT_PARTITION
 
 # ====== Step 5. Format rootfs partition as ext4 ======
 echo "[5] Formatting $ROOT_PARTITION as ext4 with UUID for Debian"
@@ -77,8 +77,8 @@ cp $DTB_SRC $DTB_DST
 sudo mkdir -p $MNT
 sudo mount $BOOT_PARTITION $MNT
 sudo cp $KERNEL $MNT/Image
-sudo cp $DTB_SRC $MNT/system.dtb
-echo "     Copied: Image ($(du -h $KERNEL | cut -f1)), system.dtb ($(du -h $DTB_SRC | cut -f1))"
+sudo cp $DTB_SRC $MNT/Rocket90MHZ.dtb
+echo "     Copied: Image ($(du -h $KERNEL | cut -f1)), Rocket90MHZ.dtb ($(du -h $DTB_SRC | cut -f1))"
 sync
 sudo umount $MNT
 
