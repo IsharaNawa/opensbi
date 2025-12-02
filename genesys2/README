@@ -1,0 +1,66 @@
+# OpenSBI Build Guide for Genesys2
+
+## Overview
+
+This guide explains how to build OpenSBI firmware with an embedded U-Boot payload for the Genesys2 FPGA board.
+
+## Important Files
+
+### opensbi/genesys2/genesys2_sbi.sh
+
+- Build script that generates `fw_payload.bin` and `fw_payload.elf` with U-Boot embedded
+- Copies built firmware to `../../build/<dts_name>/`
+
+## Prerequisites
+
+- U-Boot must be built first (see `u-boot/genesys2/README`)
+- RISC-V cross-compiler (`riscv64-linux-gnu-gcc`)
+- Required files from U-Boot build:
+  - `build/<dts_name>/u-boot.bin`
+  - `u-boot/arch/riscv/dts/<dts_name>.dtb`
+
+## Build Instructions
+
+### 1. Verify Configuration Match
+
+Ensure the `CONFIG_FILE` variable is the same in both scripts:
+- `u-boot/genesys2/setup_genesys2.sh`
+- `opensbi/genesys2/genesys2_sbi.sh`
+
+Default: `CONFIG_FILE="genesys2_defconfig"`
+
+### 2. Run the Build Script
+
+```bash
+cd opensbi/genesys2
+./genesys2_sbi.sh
+```
+
+### 3. Verify the Build
+
+Look for success messages:
+- "OpenSBI build completed successfully"
+- "Chipyard string found in firmware ✓"
+- "OpenSBI build process completed successfully"
+
+Build outputs in `../../build/<dts_name>/`:
+- `fw_payload.bin` - Binary firmware with U-Boot payload
+- `fw_payload.elf` - ELF format firmware (for debugging)
+- `u-boot.bin` - Original U-Boot binary (from previous build)
+
+## Customization
+
+To use a different config file, modify the `CONFIG_FILE` variable at the top of `genesys2_sbi.sh`:
+
+```bash
+CONFIG_FILE="your_custom_defconfig"
+```
+
+**Important:** Ensure this matches the config used in the U-Boot build.
+
+## Next Steps
+
+After successful OpenSBI build, proceed with:
+1. Building the Linux kernel image
+2. Creating the root filesystem
+3. Combining all components for FPGA deployment
