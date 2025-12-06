@@ -49,10 +49,10 @@ static void mstatus_init(struct sbi_scratch *scratch)
 
 	csr_write(CSR_MSTATUS, mstatus_val);
 
-	/* Disable user mode usage of all perf counters except TM */
+	/* Enable user mode access to all counters (cycle, time, instret, hpmcounters) */
 	if (misa_extension('S') &&
 	    sbi_hart_priv_version(scratch) >= SBI_HART_PRIV_VER_1_10)
-		csr_write(CSR_SCOUNTEREN, 0x02);
+		csr_write(CSR_SCOUNTEREN, -1);
 
 	/**
 	 * OpenSBI doesn't use any PMU counters in M-mode.
